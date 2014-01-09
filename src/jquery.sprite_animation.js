@@ -222,7 +222,7 @@
         src          : undefined,     // source file with image sprite
         fps          : 60,            // frame per second
         direction    : 'right',       // down, up, left, right
-        repeat       : false,          // false or true
+        repeat       : true,          // false or true
         repeatType   : 'rollback',    // begin (after ending it returns current frame to the first position), 
                                       // rollback (after ending it starts the animation in reverse order)
         repeatNumber : 0,             // 0 - endless; 1,2,3...
