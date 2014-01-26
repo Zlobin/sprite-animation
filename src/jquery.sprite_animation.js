@@ -1,5 +1,5 @@
 /*
- * jQuery spriteAnimation 0.1.1
+ * jQuery spriteAnimation 0.1.2
  *
  * Copyright 2014, Eugene Zlobin, CreaStar Lab., http://creastar.org/
  * Released under the MIT license
@@ -13,29 +13,29 @@
         methods = {
             init : function(options) {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     if (!data) {
-                        element.data(pluginName, {
+                        $element.data(pluginName, {
                             options : $.extend({}, $.fn.spriteAnimation.defaults, options),
                             process : function() {
-                                element.spriteAnimation('process');
+                                $element.spriteAnimation('process');
                             }
                         });
-                        element.spriteAnimation('reset');
+                        $element.spriteAnimation('reset');
 
-                        data = element.data(pluginName);
+                        data = $element.data(pluginName);
                         if (data.options.autoStart) {
-                            element.spriteAnimation('play');
+                            $element.spriteAnimation('play');
                         }
                     }
                 });
             },
             process : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName),
+                    var $element = $(this),
+                        data    = $element.data(pluginName),
                         now     = Date.now(),
                         delta   = now - data.then;
 
@@ -44,14 +44,14 @@
                         data.then = now - (delta % data.interval);
                         var timeFix = (data.then - data.timeBegin) / 1e3;
                         data.realFps = parseInt(data.counter / timeFix);
-                        element.spriteAnimation('animation');
+                        $element.spriteAnimation('animation');
                     }
                 });
             },
             animation : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     if (data.status === 'playable') {
                         if (data.currentFrame === 0) {
@@ -71,10 +71,10 @@
                                     }
                                     data.timeBegin = (new Date()).getTime();
                                 } else {
-                                    element.spriteAnimation('stop');
+                                    $element.spriteAnimation('stop');
                                 }
                             } else {
-                                element.spriteAnimation('stop');
+                                $element.spriteAnimation('stop');
                             }
                         } else {
                             if (data.currentDirection === 'forward') {
@@ -104,21 +104,21 @@
                                     break
                             }
 
-                            element.find('.spriteContainer').css('backgroundPosition', posX + 'px ' + posY + 'px');
+                            $element.find('.spriteContainer').css('backgroundPosition', posX + 'px ' + posY + 'px');
                             data.options.onUpdate();
                         }
                     }
 
                     if (data.status === 'stopped') {
-                        element.spriteAnimation('reset');
+                        $element.spriteAnimation('reset');
                     }
                 });
             },
             controlBar : function() {
                 return this.each(function() {
-                    var element = $(this);
+                    var $element = $(this);
 
-                    element.append([
+                    $element.append([
                         '<div class="spriteActive">',
                             '<input type="button" id="play" value="Play">',
                             '<input type="button" id="pause" value="Pause">',
@@ -127,23 +127,23 @@
                     ].join(''));
 
                     $("#stop").on({click: function() {
-                        element.spriteAnimation('stop');
+                        $element.spriteAnimation('stop');
                     }});
                     $("#play").on({click: function() {
-                        element.spriteAnimation('play');
+                        $element.spriteAnimation('play');
                     }});
                     $("#pause").on({click: function() {
-                        element.spriteAnimation('pause');
+                        $element.spriteAnimation('pause');
                     }});
                 });
             },
             destroy : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     $(window).unbind('.spriteAnimation');
-                    element.spriteAnimation('stop')
+                    $element.spriteAnimation('stop')
                            .removeData(pluginName)
                            .empty();
                     data.remove();
@@ -151,23 +151,23 @@
             },
             reset : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     if (data.status && data.status !== 'stopped') { // playable, paused, stopped
-                        element.spriteAnimation('stop');
+                        $element.spriteAnimation('stop');
                     }
                     data.timeBegin = data.then = Date.now();
                     data.currentFrame = data.repeated = data.progress = data.counter = 0;
                     data.currentDirection = 'forward';
                     data.status = undefined;
                     data.interval = 1e3 / data.options.fps;
-                    element.empty();
-                    element.append('<div class="spriteContainer">');
+                    $element.empty();
+                    $element.append('<div class="spriteContainer">');
                     if (data.options.controlBar) {
-                        element.spriteAnimation('controlBar');
+                        $element.spriteAnimation('controlBar');
                     }
-                    element.find('.spriteContainer').css({
+                    $element.find('.spriteContainer').css({
                         'backgroundImage'    : 'url(' + data.options.src + ')',
                         'backgroundPosition' : '0 0',
                         'width'              : data.options.width,
@@ -177,8 +177,8 @@
             },
             play : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     data.status = 'playable';
                     data.timer  = requestAnimFrame(data.process);
@@ -186,19 +186,19 @@
             },
             pause : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     data.status = 'paused';
                 });
             },
             stop : function() {
                 return this.each(function() {
-                    var element = $(this),
-                        data    = element.data(pluginName);
+                    var $element = $(this),
+                        data    = $element.data(pluginName);
 
                     data.status = 'stopped';
-                    element.spriteAnimation('reset');
+                    $element.spriteAnimation('reset');
                     cancelRequestAnimFrame(data.timer);
                     data.options.onEnd();
                 });
@@ -252,7 +252,7 @@ window.requestAnimFrame = (function() {
         window.mozRequestAnimationFrame    ||
         window.oRequestAnimationFrame      ||
         window.msRequestAnimationFrame     ||
-        function(callback, element) {
+        function(callback, $element) {
             return window.setTimeout(callback, 1e3 / 60);
         }
     );
