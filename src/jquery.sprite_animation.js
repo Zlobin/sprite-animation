@@ -232,7 +232,7 @@
         onStart      : function() {}, // called before the animation has started (before the first frame)
         onEnd        : function() {}  // called after the animation has finished (after the last frame)
     };
-})(jQuery);
+})(jQuery, window, document);
 
 window.cancelRequestAnimFrame = (function() {
     return (
