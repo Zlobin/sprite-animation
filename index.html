@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script src="src/jquery.sprite_animation.js"></script>
-        <style>
-            #animation {
-                width: 150px;
-                position: relative;
-                margin: 60px auto;
-            }
-            #animation .spriteActive button {
-                float: left;
-            }
-            #animation .spriteContainer {
-                margin-left: 44px;
-            }
-        </style>
-    </head>
-<body>
-    <div id="animation"><div>
+<html lang="ru-RU">
+  <head>
+    <meta charset="utf-8">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="src/jquery.sprite_animation.js"></script>
+    <style>
+      #animation {
+        width: 150px;
+        position: relative;
+        margin: 60px auto;
+      }
+      #animation .spriteActive button {
+        float: left;
+      }
+      #animation .spriteContainer {
+        margin-left: 44px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="animation"></div>
     <script>
-        $('#animation').spriteAnimation({
-            src        : 'http://zlob.in/wp-content/uploads/2014/01/sprite.jpg',
-            width      : 66,
-            height     : 135,
-            frameCount : 7,
-            fps        : 17
-        });
-        /* $('#animation').spriteAnimation({
-            src        : 'http://zlob.in/wp-content/uploads/2014/01/sprite-steps.png',
-            width      : 50,
-            height     : 74,
-            frameCount : 10,
-            fps        : 9
-        }); */
-        $('#animation').spriteAnimation('play');
+      var $el = $('#animation');
+
+      $el.spriteAnimation({
+        'src': 'http://zlob.in/wp-content/uploads/2014/01/sprite.jpg',
+        'width': 66,
+        'height': 135,
+        'frameCount': 7,
+        'fps': 17
+      });
+      /* $('#animation').spriteAnimation({
+        'src': 'http://zlob.in/wp-content/uploads/2014/01/sprite-steps.png',
+        'width': 50,
+        'height': 74,
+        'frameCount': 10,
+        'fps': 9
+      }); */
+      $el.spriteAnimation('play');
     </script>
-</body>
+  </body>
 </html>
