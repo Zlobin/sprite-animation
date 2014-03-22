@@ -1,4 +1,5 @@
 /* jslint nomen: true, plusplus: true, white: true, indent: 2, maxlen: 120 */
+/* global jQuery, window */
 
 /*
  * jQuery spriteAnimation 0.1.2
@@ -8,7 +9,7 @@
  *
  */
 
-(function($, window, undefined) {
+(function($, window, undef) {
   'use strict';
 
   window.cancelRequestAnimFrame = (function() {
@@ -64,14 +65,15 @@
             var $element = $(this),
                 data = $element.data(pluginName),
                 now = new Date().getTime(),
-                delta = now - data.timeNext;
+                delta = now - data.timeNext,
+                timeFix;
 
-            requestAnimFrame(data.process);
+            window.requestAnimFrame(data.process);
  
             if (delta > data.interval) {
               data.timeNext = now - (delta % data.interval);
-              var timeFix = (data.timeNext - data.timeBegin) / 1e3;
-              data.realFps = parseInt(data.counter / timeFix);
+              timeFix = (data.timeNext - data.timeBegin) / 1e3;
+              data.realFps = parseInt(data.counter / timeFix, 10);
               $element.spriteAnimation('animation');
             }
           });
@@ -79,7 +81,9 @@
         animation : function() {
           return this.each(function() {
             var $element = $(this),
-                data = $element.data(pluginName);
+                data = $element.data(pluginName),
+                posX = 0,
+                posY = 0;
 
             if (data.status === 'playable') {
               if (data.currentFrame === 0) {
@@ -114,9 +118,6 @@
               if (data.status === 'stopped') {
                 data.options.onEnd();
               } else {
-                var posX = 0,
-                    posY = 0;
-
                 switch (data.options.direction) {
                   case 'right':
                     posX = -(data.options.width * data.currentFrame);
@@ -190,7 +191,7 @@
             data.timeBegin = data.timeNext = new Date().getTime();
             data.currentFrame = data.repeated = data.progress = data.counter = 0;
             data.currentDirection = 'forward';
-            data.status = undefined;
+            data.status = undef;
             data.interval = 1e3 / data.options.fps;
             $element.empty();
             $element.append('<div class="spriteContainer">');
@@ -213,7 +214,7 @@
                 data = $element.data(pluginName);
 
             data.status = 'playable';
-            data.timer  = requestAnimFrame(data.process);
+            data.timer = window.requestAnimFrame(data.process);
           });
         },
         pause : function() {
@@ -230,27 +231,31 @@
 
             data.status = 'stopped';
             $element.spriteAnimation('reset');
-            cancelRequestAnimFrame(data.timer);
+            window.cancelRequestAnimFrame(data.timer);
             data.options.onEnd();
           });
         }
       };
 
   $.fn.spriteAnimation = function(method) {
+    var data;
+
     if (methods[method]) {
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+      data = methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
     } else if (typeof method === 'object' || !method) {
-      return methods.init.apply(this, arguments);
+      data = methods.init.apply(this, arguments);
     } else {
       $.error('Method with name "' +  method + '" doesn\'t exist');
     }
+
+    return data;
   };
 
   $.fn.spriteAnimation.defaults = {
-    'frameCount': undefined,   // number of frames
-    'width': undefined,        // width for one frame
-    'height': undefined,       // height for one frame
-    'src': undefined,          // source file with image sprite
+    'frameCount': undef,   // number of frames
+    'width': undef,        // width for one frame
+    'height': undef,       // height for one frame
+    'src': undef,          // source file with image sprite
     'fps': 60,                 // frame per second
     'direction': 'right',      // down, up, left, right
     'repeat': true,            // false or true
@@ -259,8 +264,14 @@
     'repeatNumber': 0,         // 0 - endless; 1,2,3...
     'autoStart': false,
     'controlBar': true,        // auto creating buttons: play, pause, stop
-    'onUpdate': function() {}, // called after each changing of the frame
-    'onStart': function() {},  // called before the animation has started (before the first frame)
-    'onEnd': function() {}     // called after the animation has finished (after the last frame)
+    'onUpdate': function() {   // called after each changing of the frame
+      return undef;
+    },
+    'onStart': function() {    // called before the animation has started (before the first frame)
+      return undef;
+    },
+    'onEnd': function() {      // called after the animation has finished (after the last frame)
+      return undef;
+    }
   };
 }(jQuery, this));
