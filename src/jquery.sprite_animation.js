@@ -2,7 +2,7 @@
 /* global jQuery, window */
 
 /*
- * jQuery spriteAnimation 0.1.2
+ * jQuery spriteAnimation 0.1.3
  *
  * Copyright 2014, Eugene Zlobin, CreaStar Lab., http://creastar.org/
  * Released under the MIT license
@@ -193,8 +193,11 @@
             data.currentDirection = 'forward';
             data.status = undef;
             data.interval = 1e3 / data.options.fps;
+
             $element.empty();
-            $element.append('<div class="spriteContainer">');
+            $('<div>', {
+              'class':'spriteContainer'
+            }).appendTo($element);
 
             if (data.options.controlBar) {
               $element.spriteAnimation('controlBar');
@@ -252,10 +255,10 @@
   };
 
   $.fn.spriteAnimation.defaults = {
-    'frameCount': undef,   // number of frames
-    'width': undef,        // width for one frame
-    'height': undef,       // height for one frame
-    'src': undef,          // source file with image sprite
+    'frameCount': undef,       // number of frames
+    'width': undef,            // width for one frame
+    'height': undef,           // height for one frame
+    'src': undef,              // source file with image sprite
     'fps': 60,                 // frame per second
     'direction': 'right',      // down, up, left, right
     'repeat': true,            // false or true
