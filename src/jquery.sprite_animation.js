@@ -19,7 +19,7 @@
       window.mozCancelRequestAnimationFrame ||
       window.oCancelRequestAnimationFrame ||
       window.msCancelRequestAnimationFrame ||
-      clearTimeout
+      window.clearTimeout
     );
   }());
 
