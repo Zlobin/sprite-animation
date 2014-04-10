@@ -2,9 +2,9 @@
 /* global jQuery, window */
 
 /*
- * jQuery spriteAnimation 0.1.3
+ * jQuery spriteAnimation 0.1.4
  *
- * Copyright 2014, Eugene Zlobin, CreaStar Lab., http://creastar.org/
+ * Copyright 2014, Eugene Zlobin, http://zlobin.pro/
  * Released under the MIT license
  *
  */
@@ -149,19 +149,19 @@
 
             $element.append([
               '<div class="spriteActive">',
-                '<input type="button" id="play" value="Play">',
-                '<input type="button" id="pause" value="Pause">',
-                '<input type="button" id="stop" value="Stop">',
+                '<input type="button" class="play" value="Play">',
+                '<input type="button" class="pause" value="Pause">',
+                '<input type="button" class="stop" value="Stop">',
               '</div>'
             ].join(''));
 
-            $("#stop").on({'click': function() {
+            $element.find('.stop').on({'click': function() {
               $element.spriteAnimation('stop');
             }});
-            $("#play").on({'click': function() {
+            $element.find('.play').on({'click': function() {
               $element.spriteAnimation('play');
             }});
-            $("#pause").on({'click': function() {
+            $element.find('.pause').on({'click': function() {
               $element.spriteAnimation('pause');
             }});
           });
@@ -267,14 +267,8 @@
     'repeatNumber': 0,         // 0 - endless; 1,2,3...
     'autoStart': false,
     'controlBar': true,        // auto creating buttons: play, pause, stop
-    'onUpdate': function() {   // called after each changing of the frame
-      return undef;
-    },
-    'onStart': function() {    // called before the animation has started (before the first frame)
-      return undef;
-    },
-    'onEnd': function() {      // called after the animation has finished (after the last frame)
-      return undef;
-    }
+    'onUpdate': $.noop,
+    'onStart': $.noop,
+    'onEnd': $.noop
   };
 }(jQuery, this));
