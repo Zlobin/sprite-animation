@@ -20,10 +20,11 @@
   </head>
   <body>
     <div id="animation" class="animation"></div>
-	<div id="animation2" class="animation"></div>
+    <div id="animation2" class="animation"></div>
+
     <script>
-      var $el = $('#animation');
-	  var $el2 = $('#animation2');
+      var $el = $('#animation'),
+          $el2 = $('#animation2');
 
       $el.spriteAnimation({
         'src': 'http://zlob.in/wp-content/uploads/2014/01/sprite.jpg',
@@ -41,7 +42,7 @@
       });
 
       $el.spriteAnimation('play');
-	  $el2.spriteAnimation('play');
+      $el2.spriteAnimation('play');
     </script>
   </body>
 </html>
