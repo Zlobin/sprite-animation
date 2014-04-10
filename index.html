@@ -5,23 +5,25 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="https://rawgithub.com/Zlobin/sprite_animation/master/src/jquery.sprite_animation.js"></script>
     <style>
-      #animation {
+      .animation {
         width: 150px;
         position: relative;
         margin: 60px auto;
       }
-      #animation .spriteActive button {
+      .animation .spriteActive button {
         float: left;
       }
-      #animation .spriteContainer {
+      .animation .spriteContainer {
         margin-left: 44px;
       }
     </style>
   </head>
   <body>
-    <div id="animation"></div>
+    <div id="animation" class="animation"></div>
+	<div id="animation2" class="animation"></div>
     <script>
       var $el = $('#animation');
+	  var $el2 = $('#animation2');
 
       $el.spriteAnimation({
         'src': 'http://zlob.in/wp-content/uploads/2014/01/sprite.jpg',
@@ -30,14 +32,16 @@
         'frameCount': 7,
         'fps': 17
       });
-      /* $('#animation').spriteAnimation({
+      $el2.spriteAnimation({
         'src': 'http://zlob.in/wp-content/uploads/2014/01/sprite-steps.png',
         'width': 50,
         'height': 74,
         'frameCount': 10,
         'fps': 9
-      }); */
+      });
+
       $el.spriteAnimation('play');
+	  $el2.spriteAnimation('play');
     </script>
   </body>
 </html>
