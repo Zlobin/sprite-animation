@@ -24,7 +24,7 @@
         }
     ],
     "bugs": "https://github.com/Zlobin/sprite-animation/issues",
-    "homepage": "http://zlobin.github.io/sprite-animation/",
+    "demo": "http://zlobin.github.io/sprite-animation/",
     "download": "https://github.com/Zlobin/sprite-animation/releases",
     "dependencies": {
         "jquery": ">=2.0"
