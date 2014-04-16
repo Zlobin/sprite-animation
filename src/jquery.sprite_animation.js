@@ -2,7 +2,7 @@
 /* global jQuery, window */
 
 /*
- * jQuery spriteAnimation 0.1.4
+ * jQuery spriteAnimation 0.1.5
  *
  * Copyright 2014, Eugene Zlobin, http://zlobin.pro/
  * Released under the MIT license
