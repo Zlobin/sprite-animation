@@ -1,0 +1,25 @@
+{
+  "name": "SpriteAnimation",
+  "homepage": "https://github.com/Zlobin/sprite-animation",
+  "authors": [
+    "Zlobin Eugene <creastar@gmail.com>"
+  ],
+  "description": "jQuery plugin for image-sprite animation",
+  "main": "src/jquery.sprite_animation.js",
+  "moduleType": [],
+  "keywords": [
+    "animation",
+    "sprite",
+    "jquery",
+    "image-sprite"
+  ],
+  "license": "MIT",
+  "version": "1.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
